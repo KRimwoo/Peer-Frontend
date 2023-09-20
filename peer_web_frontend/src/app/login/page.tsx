@@ -5,6 +5,16 @@ import { useForm, Controller, SubmitHandler } from 'react-hook-form'
 import axios from 'axios'
 import useAuthStore from '@/states/useAuthStore'
 import { useCookies } from 'react-cookie'
+import {
+  Box,
+  Button,
+  IconButton,
+  InputAdornment,
+  InputLabel,
+  TextField,
+  Typography,
+} from '@mui/material'
+import { Visibility, VisibilityOff } from '@mui/icons-material'
 
 interface ILoginFormInput {
   userEmail: string
@@ -48,7 +58,7 @@ const Login = () => {
     <>
       <h2>로그인 페이지</h2>
       <form onSubmit={handleSubmit(onSubmit)}>
-        <div>
+        <Box>
           <Controller
             name="userEmail"
             control={control}
@@ -61,16 +71,18 @@ const Login = () => {
               },
             }}
             render={({ field }) => (
-              <div>
-                <label htmlFor="userEmail">이메일</label>
-                <input {...field} id="userEmail" />
-              </div>
+              <Box>
+                <InputLabel htmlFor="userEmail">이메일</InputLabel>
+                <TextField {...field} id="userEmail" sx={{ width: '500px' }} />
+              </Box>
             )}
           />
-          {errors.userEmail && <p>{errors.userEmail.message}</p>}
-        </div>
+          {errors.userEmail && (
+            <Typography>{errors.userEmail.message}</Typography>
+          )}
+        </Box>
 
-        <div>
+        <Box>
           <Controller
             name="password"
             control={control}
@@ -79,31 +91,44 @@ const Login = () => {
               required: '비밀번호를 입력해주세요',
             }}
             render={({ field }) => (
-              <div>
-                <label htmlFor="password">비밀번호</label>
-                <input
+              <Box>
+                <InputLabel htmlFor="password">비밀번호</InputLabel>
+                <TextField
                   id="password"
                   type={showPassword ? 'text' : 'password'}
                   {...field}
-                ></input>
-                <button
-                  type="button"
-                  onClick={() => setShowPassword(!showPassword)}
-                >
-                  {showPassword ? 'hide' : 'show'}
-                </button>
-              </div>
+                  sx={{ width: '500px' }}
+                  InputProps={{
+                    endAdornment: (
+                      <InputAdornment position="end">
+                        <IconButton
+                          aria-label="toggle password visibility"
+                          onClick={() => setShowPassword(!showPassword)}
+                          edge="end"
+                        >
+                          {showPassword ? <VisibilityOff /> : <Visibility />}
+                        </IconButton>
+                      </InputAdornment>
+                    ),
+                  }}
+                />
+              </Box>
             )}
           />
-          {errors.password && <p>{errors.password.message}</p>}
-        </div>
-        <button type="submit" disabled={isLoading}>
+          {errors.password && (
+            <Typography>{errors.password.message}</Typography>
+          )}
+        </Box>
+        <Button type="submit" disabled={isLoading}>
           로그인
-        </button>
+        </Button>
       </form>
-      <div>
-        <button>Sign in with Google</button>
-      </div>
+      <Box>
+        <Button>Sign in with 42Seoul</Button>
+      </Box>
+      <Box>
+        <Button>Sign in with Google</Button>
+      </Box>
     </>
   )
 }
