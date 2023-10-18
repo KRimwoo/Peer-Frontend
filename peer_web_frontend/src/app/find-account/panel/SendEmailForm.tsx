@@ -84,20 +84,19 @@ const SendEmailForm = () => {
             )}
           />
         </Box>
-        {!isEmailSuccessful ? (
+        {!isEmailSuccessful && (
           <Button type="submit" disabled={isSubmitting}>
             코드 발송
           </Button>
-        ) : (
-          <Box sx={{ display: 'flex', width: '100%' }}>
-            <SendCodeForm
-              email={
-                control._fields.email ? control._fields.email._f.value : ''
-              }
-            />
-          </Box>
         )}
       </Box>
+      {isEmailSuccessful && (
+        <Box sx={{ display: 'flex', width: '100%' }}>
+          <SendCodeForm
+            email={control._fields.email ? control._fields.email._f.value : ''}
+          />
+        </Box>
+      )}
     </>
   )
 }

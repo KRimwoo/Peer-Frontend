@@ -40,7 +40,7 @@ const SendCodeForm = ({ email }: { email: string }) => {
   const [timer, setTimer] = useState(5 * 60)
   const router = useRouter()
 
-  console.log(email)
+  //console.log(email)
   useEffect(() => {
     const countdown = setInterval(() => {
       setTimer((prevTimer) => prevTimer - 1)
@@ -68,7 +68,7 @@ const SendCodeForm = ({ email }: { email: string }) => {
 
   const onSubmit = async (data: { code: string }) => {
     const codeData = JSON.stringify({ email, data })
-    console.log(codeData)
+    console.log('codeData: ', codeData)
 
     try {
       // 테스트용 post요청 코드
